@@ -1,8 +1,8 @@
 " Vim indent file
 " Language:     tf (TinyFugue)
 " Maintainer:   Christian J. Robinson <infynity@onewest.net>
-" URL:          http://www.infynity.mux.cx/vim/indent/tf.vim
-" Last Change:  2002 Jan 08
+" URL:          http://www.infynity.spodzone.com/vim/indent/tf.vim
+" Last Change:  2002 May 29
 
 " Only load this indent file when no other was loaded.
 if exists("b:did_indent")
@@ -30,6 +30,12 @@ function GetTFIndent()
 
 	let ind = indent(lnum)
 	let line = getline(lnum)
+
+	" No indentation if the previous line didn't end with "\":
+	" (Could be annoying, but it lets you know if you made a mistake.)
+	if line !~ '\\$'
+		return 0
+	endif
 
 	if line =~ '\(/def.*\\\|/for.*\(%;\s*\)\@\<!\\\)$'
 		let ind = ind + &sw
